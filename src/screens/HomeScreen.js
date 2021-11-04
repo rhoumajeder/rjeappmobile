@@ -118,37 +118,34 @@ function HomeScreen({ navigation }) {
   function onPressRadioButton(radioButtonsArray) {
     setRadioButtons(radioButtonsArray);
   }
-  const getFunc= async () => {
+  const getFunc = async () => {
     await fetch(`https://rjeapp.herokuapp.com/api/get-all-records/`, {
-      method: 'GET',
+      method: "GET",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
         // Accept: 'application/json',
       },
     })
       .then((response) => response.text())
       .then(async (responseJson) => {
-
-        setApiData(JSON.parse(responseJson))
+        setApiData(JSON.parse(responseJson));
       })
       .catch((error) => {
-        console.log('Check error', error);
+        console.log("Check error", error);
       });
   };
-  useEffect 
-    (() => {
-      getFunc();
-    },
-    []);
+  useEffect(() => {
+    getFunc();
+  }, []);
   const renderItem = ({ item }) => {
     console.log(item.sub_records);
     return (
       <Cards
-      propFirst={item.moyen_de_transport=='Car'?true:false}
+        propFirst={item.moyen_de_transport == "Car" ? true : false}
         navigation={navigation}
         date={item.created_at}
         Vehical={item.moyen_de_transport}
-        price={ item.sub_records.map((ele)=>ele.price)}
+        price={item.sub_records.map((ele) => ele.price)}
         weight={item.max_weight}
         from={item.city_destination}
         to={item.city_arrival}
@@ -249,23 +246,25 @@ function HomeScreen({ navigation }) {
             </TouchableOpacity>
           </View>
 
-          <ScrollView style={{}}>
-            {first ? (
-              <>
-                <FlatList data={apiData} renderItem={renderItem} />
-                {/* <Cards navigation={navigation} propFirst={false} />
+          <ScrollView style={{ flex: 1 }}>
+            <View style={{ paddingBottom: "20%" }}>
+              {first ? (
+                <>
+                  <FlatList data={apiData} renderItem={renderItem} />
+                  {/* <Cards navigation={navigation} propFirst={false} />
                 <Cards navigation={navigation} propFirst={true} />
                 <Cards navigation={navigation} propFirst={false} />
                 <Cards navigation={navigation} propFirst={true} /> */}
-              </>
-            ) : second ? (
-              <>
-                <Cards navigation={navigation} propFirst={true} />
-                <Cards navigation={navigation} propFirst={true} />
-              </>
-            ) : (
-              third && <Cards navigation={navigation} propFirst={false} />
-            )}
+                </>
+              ) : second ? (
+                <>
+                  <Cards navigation={navigation} propFirst={true} />
+                  <Cards navigation={navigation} propFirst={true} />
+                </>
+              ) : (
+                third && <Cards navigation={navigation} propFirst={false} />
+              )}
+            </View>
           </ScrollView>
 
           <TouchableOpacity

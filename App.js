@@ -6,25 +6,30 @@
  * @flow strict-local
  */
 
-import React from "react";
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from "react-native";
+import React, { useEffect } from "react";
+import { StatusBar, StyleSheet, LogBox, View } from "react-native";
 
 import { NavigationContainer } from "@react-navigation/native";
 import { Navigation } from "./src/config/Navigation";
 
 const App = () => {
+  useEffect(() => {
+    LogBox.ignoreLogs(["VirtualizedLists should never be nested"]);
+    LogBox.ignoreLogs(["Possible Unhandled Promise Rejection"]);
+  }, []);
   return (
-    <NavigationContainer>
-      <Navigation />
-    </NavigationContainer>
+    <>
+      <View>
+        {Platform.OS === "ios" ? (
+          <StatusBar barStyle="dark-content" />
+        ) : (
+          <StatusBar barStyle="dark-content" backgroundColor={"#fff"} />
+        )}
+      </View>
+      <NavigationContainer>
+        <Navigation />
+      </NavigationContainer>
+    </>
   );
 };
 
