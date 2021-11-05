@@ -21,7 +21,7 @@ import ListOfferScreen from "../screens/ListOfferScreen";
 import ListRequestScreen from "../screens/ListRequestScreen";
 import MyOfferProposition from "../screens/MyOfferProposition";
 import MyRequestProposition from "../screens/MyRequestProposition";
-
+import check from "../screens/check";
 // import colors from './colors';
 
 const Stack = createStackNavigator();
@@ -44,7 +44,7 @@ const PublisherStack = (props) => (
 
 const Navigation = (props) => (
   <Stack.Navigator
-    // initialRouteName=""
+    initialRouteName="BottomTabNavigator"
     screenOptions={{
       headerBackTitle: "",
       headerShown: false,
@@ -88,11 +88,12 @@ const BottomTabNavigator = () => {
           ),
         }}
       />
+
       <Tab.Screen
         name="PublisherStack"
         component={PublisherStack}
         options={{
-          tabBarLabel: "Publier",
+          tabBarLabel: "CreateRecord",
           tabBarIcon: ({ color, size }) => (
             <AntDesign name="pluscircleo" color={color} size={size} />
           ),

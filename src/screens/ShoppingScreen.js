@@ -60,10 +60,12 @@ function ShoppingScreen(props) {
             }}
           ></View>
           <ScrollView showsVerticalScrollIndicator={false} style={{}}>
-            <ProductCart />
-            <ProductCart />
-            <ProductCart />
-            <ProductCart />
+            <View style={{ paddingBottom: "20%" }}>
+              <ProductCart />
+              <ProductCart />
+              <ProductCart />
+              <ProductCart />
+            </View>
           </ScrollView>
           <TouchableOpacity
             onPress={() => setFilter(true)}

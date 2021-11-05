@@ -3,9 +3,10 @@ import { View, Text, TextInput, StyleSheet } from "react-native";
 import colors from "../../config/colors";
 
 const InputField = (props) => {
-  const { placeholder, type, secureTextEntry } = props;
+  const { placeholder, type, secureTextEntry, value } = props;
   return (
     <TextInput
+      value={value}
       keyboardType={type}
       secureTextEntry={secureTextEntry}
       style={styles.fieldStl}

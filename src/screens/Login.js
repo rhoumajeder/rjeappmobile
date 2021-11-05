@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -12,10 +12,35 @@ import {
 } from "react-native";
 import InputField from "../components/Button&InputCom/input";
 import Button from "../components/Button&InputCom/Button";
-import MaterialIcons from "react-native-vector-icons/MaterialIcons";
+import ButtonSmall from "../components/Button&InputCom/ButtonSmall";
+import ActivityInd from "../components/ActivityInd/ActivityInd";
 import colors from "../config/colors";
+import { getToken } from "../config/Exports";
 const { width, height } = Dimensions.get("screen");
 const Login = ({ navigation }) => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loader, setLoader] = useState(false);
+
+  const submitLogin = () => {
+    if (email === "") {
+      alert("Email is Empty!");
+    } else if (password === "") {
+      alert("Password is Empty!");
+    } else {
+      setLoader(true);
+      getToken(email, password)
+        .then(({ data }) => {
+          console.log(JSON.stringify(data));
+          setLoader(false);
+          navigation.navigate("Publier");
+        })
+        .catch((error) => {
+          setLoader(false);
+          alert("ERROR : ", error);
+        });
+    }
+  };
   return (
     <ScrollView style={{ backgroundColor: "#FFF" }}>
       <SafeAreaView style={styles.container}>
@@ -24,17 +49,23 @@ const Login = ({ navigation }) => {
         </View>
 
         <InputField
+          value={email}
           placeholder="Email"
           type="email-address"
           secureTextEntry={false}
         />
-        <InputField placeholder="password" secureTextEntry={true} />
-        <Button
+        <InputField
+          value={password}
+          placeholder="password"
+          secureTextEntry={true}
+        />
+        <ButtonSmall
           btnStl={styles.btnStl}
           btnTxt={styles.btnTxt}
+          btnSmall={true}
           txt="Log In"
           navigate="Publier"
-          navigation={navigation}
+          onPress={() => submitLogin()}
         />
         <View style={{ width: "90%", marginTop: 20 }}>
           {/* <TouchableOpacity> */}
@@ -74,6 +105,7 @@ const Login = ({ navigation }) => {
           {/* </TouchableOpacity> */}
         </View>
       </SafeAreaView>
+      <ActivityInd visible={loader} label="Signing In Please Wait..." />
     </ScrollView>
   );
 };
