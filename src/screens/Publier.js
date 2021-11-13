@@ -212,7 +212,7 @@ function Publier() {
 
             {/* <TouchableOpacity
               onPress={() => setWeightCond(true)}
-              activeOpacity={0.5}
+              activeOpacity={0.5}  
               style={{ marginVertical: 20, alignSelf: "flex-start" }}
             >
               <Text style={{ color: "#1ab7f6", fontSize: 16, paddingLeft: 10 }}>
